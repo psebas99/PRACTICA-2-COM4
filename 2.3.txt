@@ -1,0 +1,38 @@
+% Parámetros de la señal
+f0 = 300;        % Frecuencia en Hz
+phase = 0;       % Fase en grados
+fs = 8000;       % Frecuencia de muestreo en Hz
+
+% Vector de tiempo continuo
+t = 0:0.00001:0.005;  % Valores de tiempo desde 0 hasta 0.005 segundos
+
+% Señal senoidal en tiempo continuo
+x_t = cos(2*pi*f0*t + deg2rad(phase));
+
+% Frecuencia de muestreo en segundos
+Ts = 1 / fs;
+
+% Vector de tiempo discreto
+n = 0:40;
+
+% Secuencia muestreada en tiempo discreto
+x_n = cos(2*pi*f0*n*Ts + deg2rad(phase));
+
+% Graficar x(t) y x[n]
+figure;
+
+subplot(2, 1, 1);
+plot(t, x_t);
+xlabel('Tiempo (s)');
+ylabel('Amplitud');
+title('Señal Continua x(t)');
+grid on;
+
+subplot(2, 1, 2);
+stem(n, x_n, 'r', 'LineWidth', 2);
+xlabel('n');
+ylabel('Amplitud');
+title('Señal Discreta x[n]');
+grid on;
+
+linkaxes(findall(gcf, 'type', 'axes'), 'x');

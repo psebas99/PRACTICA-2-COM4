@@ -1,0 +1,21 @@
+% Definición de las secuencias x[n] y h[n]
+n = 0:6;  % Vector de índices para 7 muestras
+x = (-1).^n;  % Oscilante entre 1 y -1
+h = exp(-0.5*n);  % Función exponencial
+% Longitud de las secuencias x[n] y h[n]
+Nx = length(x);
+Nh = length(h);
+% Número de muestras de la secuencia resultante y[n]
+Ny = Nx + Nh - 1;
+% Valor en el que debe iniciar la secuencia y[n]
+start_index_y = find(x) + find(h) - 2;  % Restamos 2 debido a la indexación en MATLAB/Octave
+% Realizar la convolución
+y = conv(x, h);
+% Graficar las secuencias y[n], x[n], y h[n]
+n_y = start_index_y:start_index_y + Ny - 1;
+stem(n_y, y, 'r', 'LineWidth', 2); hold on;
+xlabel('n');
+ylabel('Amplitud');
+title('Convolución de x[n] y h[n]');
+legend('y[n]');
+grid on;

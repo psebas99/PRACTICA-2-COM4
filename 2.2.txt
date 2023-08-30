@@ -1,0 +1,16 @@
+% Definición de la respuesta al impulso h[n]
+n_h = 0:20;
+h = exp(-0.5 * n_h);
+
+% Definición de la secuencia escalón U[n]
+n_u = 0:20;
+U = ones(size(n_u));
+% Cálculo de la convolución entre U[n] y h[n]
+s = conv(U, h);
+% Graficar la respuesta al escalón s[n]
+n_s = 0:length(s)-1;
+stem(n_s, s, 'filled')
+xlabel('n')
+ylabel('s[n]')
+title('Respuesta al Escalón s[n]')
+grid on

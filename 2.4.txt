@@ -1,0 +1,91 @@
+clear;
+close all;
+
+% Generar la secuencia x[n] = exp(-0.5*n)
+n = 0:24;
+x_n = exp(-0.5 * n);
+
+% Factor de diezmado, interpolación y remuestreo
+r = 2;  % Factor de diezmado/interpolación
+p = 3;  % Factor de remuestreo (numerador)
+q = 2;  % Factor de remuestreo (denominador)
+
+% Aplicar la función decimate para el diezmado
+x_diezmada = decimate(x_n, r);
+
+% Aplicar la función interp para la interpolación
+x_interpolada = interp(x_n, r);
+
+% Aplicar la función resample para el remuestreo
+x_remuestreada = resample(x_n, p, q);
+
+% Graficar las secuencias resultantes
+subplot(4, 1, 1);
+stem(n, x_n, 'filled');
+xlabel('n');
+ylabel('Amplitud');
+title('Secuencia Original x[n] = exp(-0.5n)');
+grid on;
+
+subplot(4, 1, 2);
+stem(0:length(x_diezmada)-1, x_diezmada, 'filled');
+xlabel('n');
+ylabel('Amplitud');
+title(['Secuencia Diezmada x_d[n] (r = ' num2str(r) ')']);
+grid on;
+
+subplot(4, 1, 3);
+stem(0:length(x_interpolada)-1, x_interpolada, 'filled');
+xlabel('n');
+ylabel('Amplitud');
+title(['Secuencia Interpolada x_i[n] (r = ' num2str(r) ')']);
+grid on;
+
+subplot(4, 1, 4);
+stem(0:length(x_remuestreada)-1, x_remuestreada, 'filled');
+xlabel('n');
+ylabel('Amplitud');
+title(['Secuencia Remuestreada x_r[n] (p/q = ' num2str(p/q) ')']);
+grid on;
+
+sgtitle('Operaciones de Diezmado, Interpolación y Remuestreo en x[n] = exp(-0.5n)');
+
+
+% Cargamos la señal x[n] que creamos previamente (puede ser cualquiera de las anteriores)
+load('x_n_discrete.mat'); % Asegúrate de cambiar el nombre del archivo si lo has guardado con otro nombre
+
+% Factor de diezmado, interpolación y remuestreo
+r = 2;  % Factor de diezmado/interpolación
+p = 3;  % Factor de remuestreo (numerador)
+q = 2;  % Factor de remuestreo (denominador)
+
+% Aplicar la función decimate para el diezmado
+x_diezmada = decimate(x_n_discrete, r);
+
+% Aplicar la función interp para la interpolación
+x_interpolada = interp(x_n_discrete, r);
+
+% Aplicar la función resample para el remuestreo
+x_remuestreada = resample(x_n_discrete, p, q);
+
+% Graficar las señales resultantes
+subplot(4, 1, 1);
+stem(x_n_discrete, 'filled');
+xlabel('n');
+ylabel('Amplitud');
+title('Secuencia Original x[n]');
+grid on;
+
+subplot(4, 1, 2);
+stem(x_diezmada, 'filled');
+xlabel('n');
+ylabel('Amplitud');
+title(['Secuencia Diezmada x_d[n] (r = ' num2str(r) ')']);
+grid on;
+
+subplot(4, 1, 3);
+stem(x_interpolada, 'filled');
+xlabel('n');
+ylabel('Amplitud');
+title(['Secuencia Interpolada x_i[n] (r = ' num2str(r) ')']);
+grid on;
